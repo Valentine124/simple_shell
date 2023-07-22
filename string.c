@@ -1,9 +1,9 @@
 #include "string.h"
 
 /**
- *_strlen - finds the length of a string
- *@s: The string
- *Return: Return lenth of the string
+ * _strlen - finds the length of a string
+ * @s: The string
+ * Return: Return lenth of the string
  */
 
 int _strlen(char *s)
@@ -19,10 +19,10 @@ int _strlen(char *s)
 }
 
 /**
- *_strcpy - copies a string to another
- *@dest: The string to copy from
- *@src: The string to copy to
- *Return: Return dest
+ * _strcpy - copies a string to another
+ * @dest: The string to copy from
+ * @src: The string to copy to
+ * Return: Return dest
  */
 
 char *_strcpy(char *dest, char *src)
@@ -31,7 +31,7 @@ char *_strcpy(char *dest, char *src)
 
 	for (i = 0; src[i] != '\0'; i++)
 	{
-		dest[i] + src[i];
+		dest[i] = src[i];
 	}
 	dest[i] = '\0';
 
@@ -39,10 +39,10 @@ char *_strcpy(char *dest, char *src)
 }
 
 /**
- *_strcat - concatinate two strings
- *@dest: The main string
- *@src: The string to add
- *Return: Returns dest
+ * _strcat - concatinate two strings
+ * @dest: The main string
+ * @src: The string to add
+ * Return: Returns dest
  */
 
 char *_strcat(char *dest, char *src)
@@ -60,11 +60,11 @@ char *_strcat(char *dest, char *src)
 }
 
 /**
- *_strcmp - compares two strings
- *@s1: The first string
- *@s2: The second string
- *Return: Return 0 if s1 == s2 and any
- *other number if s1 != s2
+ * _strcmp - compares two strings
+ * @s1: The first string
+ * @s2: The second string
+ * Return: Return 0 if s1 == s2 and any
+ * other number if s1 != s2
  */
 
 int _strcmp(char *s1, char *s2)
@@ -85,10 +85,10 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
- *_strdup - Duplicates a string
- *@s: The string to duplicate
- *Return: Return a pointer to the
- *duplicate string or NULL
+ * _strdup - Duplicates a string
+ * @s: The string to duplicate
+ * Return: Return a pointer to the
+ * duplicate string or NULL
  */
 
 char *_strdup(char *s)
@@ -96,7 +96,7 @@ char *_strdup(char *s)
 	char *dup;
 	int i;
 
-	dup = malloc(sizeof(char) * (_strlen(dup) + 1));
+	dup = malloc(sizeof(char) * (_strlen(s) + 1));
 
 	if (dup == NULL)
 		return (NULL);
