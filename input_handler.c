@@ -14,6 +14,9 @@ char *read_line(void)
 	if (getline(&line, &bufsize, stdin) == -1)
 	{
 		free(line);
+		if (isatty(STDIN_FILENO))
+			_putchar(STDOUT_FILENO, '\n');
+
 		exit(EXIT_SUCCESS);
 	}
 

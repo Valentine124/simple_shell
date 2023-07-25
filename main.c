@@ -18,6 +18,8 @@ int main(int argc, char **argv)
 {
 	(void)argc;
 
+	signal(SIGINT, ctr_c_handler);
+
 	if (isatty(STDIN_FILENO))
 	{
 		/* Shell is interactive, display a prompt */
