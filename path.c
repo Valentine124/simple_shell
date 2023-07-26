@@ -55,7 +55,7 @@ char *find_path(char *cmd)
 
 	path = handle_incomplete_path(cmd, list);
 
-	if (path)
+	if (path[0])
 	{
 		free(path_cpy);
 		return (path);
@@ -78,8 +78,7 @@ char *find_path(char *cmd)
  */
 char *handle_incomplete_path(char *cmd, dir_t *list)
 {
-	char *path = NULL;
-	int path_len, cmd_len = _strlen(cmd);
+	static char path[1024];
 	struct stat buff;
 	dir_t *temp;
 
@@ -87,19 +86,16 @@ char *handle_incomplete_path(char *cmd, dir_t *list)
 
 	while (temp)
 	{
-		path_len = _strlen(temp->name);
-
-		path = malloc(path_len + cmd_len + 2);
-		if (!path)
-		{
-			free_list(list);
-			return (NULL);
-		}
-
 		_strcpy(path, temp->name);
 		_strcat(path, "/");
 		_strcat(path, cmd);
 		_strcat(path, "\0");
+
+		if (path[0] == '\0')
+		{
+			free_list(list);
+			return (NULL);
+		}
 
 		if (stat(path, &buff) == 0)
 		{
@@ -108,10 +104,9 @@ char *handle_incomplete_path(char *cmd, dir_t *list)
 		}
 
 		temp = temp->next;
-		free(path);
 	}
 
-	path = NULL;
+	path[0] = '\0';
 	free_list(list);
 
 	return (path);

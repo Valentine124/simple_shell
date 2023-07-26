@@ -43,7 +43,6 @@ void execute_child(char **argv, char *program_name)
 
 	if (pid == -1)
 	{
-		free(cmd);
 		perror(program_name);
 		exit(EXIT_FAILURE);
 	}
@@ -51,7 +50,7 @@ void execute_child(char **argv, char *program_name)
 	{
 		if (execve(cmd, argv, NULL) == -1)
 		{
-			free(cmd);
+			perror(program_name);
 			exit(EXIT_FAILURE);
 		}
 	}
