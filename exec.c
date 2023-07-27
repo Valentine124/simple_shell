@@ -4,30 +4,44 @@
  * exec_cmd - execute the command and arguments
  * @argv: the argument vector
  * @program_name: the name of the exec file
+ *
+ * Return: status
  */
 
-void exec_cmd(char **argv, char *program_name)
+int exec_cmd(char **argv, char *program_name)
 {
+	int status;
+
 	if (argv == NULL || argv[0] == NULL)
-		return;
+		return (-1);
 
-	if (handle_builtin(program_name, argv[0]) == 1)
-		return;
+	status = handle_builtin(program_name, argv);
+	if (status >= 0)
+		return (status);
 
-	execute_child(argv, program_name);
+	if ((_strcmp(argv[0], "exit") == 0) && handle_exit(program_name, argv) == -1)
+	{
+		print_error("%s: %s: Illegal number: %s\n", program_name, argv[0], argv[1]);
+		return (-1);
+	}
+
+	return (execute_child(argv, program_name));
 }
 
 /**
  * execute_child - execute of binary in a new process
  * @argv: the array of strings
  * @program_name: name of th exe file
+ *
+ * Return: Status
  */
 
-void execute_child(char **argv, char *program_name)
+int execute_child(char **argv, char *program_name)
 {
 	static int c;
 	char *cmd = find_path(argv[0]);
 	pid_t pid;
+	int status;
 
 	c = 0;
 
@@ -36,7 +50,7 @@ void execute_child(char **argv, char *program_name)
 	if (!cmd)
 	{
 		print_error("%s: %d: %s: not found\n", program_name, c, argv[0]);
-		return;
+		return (-1);
 	}
 
 	pid = fork();
@@ -56,6 +70,7 @@ void execute_child(char **argv, char *program_name)
 	}
 	else
 	{
-		wait(NULL);
+		waitpid(pid, &status, 0);
 	}
+	return (-1);
 }

@@ -11,24 +11,43 @@
 
 /**
  * handle_exit - exits the shell
- * @program_name: the exe file
+ * @program: the exe file
+ * @argv: the argument list
+ *
+ * Return: 0 or exit status
  */
-void handle_exit(char *program_name)
+int handle_exit(char *program, char **argv)
 {
-	(void)program_name;
+	(void)program;
+	if (argv[1])
+	{
+		int n = _atoi(argv[1]);
 
-	exit(0);
+		if (n < 0)
+		{
+			return (-1);
+		}
+		return (n);
+	}
+	else
+	{
+		return (0);
+	}
 }
 
 /**
  * handle_env - print the environment variable
  * @program_name: the exe file
+ * @argv: The argument list
+ *
+ * Return: -1
  */
-void handle_env(char *program_name)
+int handle_env(char *program_name, char **argv)
 {
 	int i;
 
 	(void)program_name;
+	(void)argv;
 
 	i = 0;
 
@@ -39,4 +58,6 @@ void handle_env(char *program_name)
 
 		i++;
 	}
+
+	return (-1);
 }

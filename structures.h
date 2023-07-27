@@ -26,7 +26,7 @@ typedef struct node_dir
 typedef struct built_in
 {
 	char *name;
-	void (*func)(char *);
+	int (*func)(char *, char **);
 } builtin_t;
 
 #endif

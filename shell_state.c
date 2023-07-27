@@ -9,18 +9,22 @@ void shell_interactive(char *program_name)
 {
 	char *line = NULL;
 	char **argv = NULL;
+	int status = -1;
 
-	while (1)
+	while (status == -1)
 	{
 		write(STDOUT_FILENO, "$ ", 2);
 
 		line = read_line();
 		argv = split_string(line);
 
-		exec_cmd(argv, program_name);
+		status = exec_cmd(argv, program_name);
 
 		free(line);
 		free(argv);
+
+		if (status >= 0)
+			exit(status);
 	}
 }
 
@@ -33,15 +37,19 @@ void shell_non_interactive(char *program_name)
 {
 	char *line = NULL;
 	char **argv = NULL;
+	int status = -1;
 
-	while (1)
+	while (status == -1)
 	{
 		line = read_line();
 		argv = split_string(line);
 
-		exec_cmd(argv, program_name);
+		status = exec_cmd(argv, program_name);
 
 		free(line);
 		free(argv);
+
+		if (status >= 0)
+			exit(status);
 	}
 }

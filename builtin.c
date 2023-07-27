@@ -3,11 +3,11 @@
 /**
  * handle_builtin - handles all built in commands
  * @program_name: name of exe file
- * @builtin_name: The name of the built in command
+ * @argv: The argument list
  *
  * Return: 1 if built in exist else 0
  */
-int handle_builtin(char *program_name, char *builtin_name)
+int handle_builtin(char *program_name, char **argv)
 {
 	int i;
 
@@ -19,12 +19,11 @@ int handle_builtin(char *program_name, char *builtin_name)
 
 	for (i = 0; builtins[i].name; i++)
 	{
-		if (_strcmp(builtins[i].name, builtin_name) == 0)
+		if (_strcmp(builtins[i].name, argv[0]) == 0)
 		{
-			builtins[i].func(program_name);
-			return (1);
+			return (builtins[i].func(program_name, argv));
 		}
 	}
 
-	return (0);
+	return (-1);
 }
