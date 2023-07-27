@@ -13,6 +13,7 @@ int handle_builtin(char *program_name, char *builtin_name)
 
 	builtin_t builtins[] = {
 		{"exit", handle_exit},
+		{"env", handle_env},
 		{NULL, NULL}
 	};
 

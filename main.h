@@ -13,6 +13,9 @@
 #include <stdarg.h>
 #include "structures.h"
 
+/* global variables */
+extern char **environ;
+
 /* END HEADER FILES */
 
 /* FUNCTIONS */
@@ -32,6 +35,7 @@ void print_error(char *format, ...);
 char *handle_incomplete_path(char *cmd, dir_t *list);
 void handle_exit(char *program_name);
 int handle_builtin(char *program_name, char *builtin_name);
+void handle_env(char *program_name);
 
 /* End of functins */
 
